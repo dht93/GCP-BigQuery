@@ -4,6 +4,9 @@ List all datasets in current project
 - bq mk dataset_name
 Create a new dataset
 
+- bq mk --schema name:string,value:integer -t mydataset.newtable
+Create an empty table from schema
+
 - bq load dataset.table_name filename.txt schema
 Load data to table table_name
 eg. bq load babynames.names2010 yob2010.txt name:string,gender:string,count:integer
