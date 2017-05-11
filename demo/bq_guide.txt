@@ -7,6 +7,9 @@ Create a new dataset
 - bq mk --schema name:string,value:integer -t mydataset.newtable
 Create an empty table from schema
 
+- bq mk --time_partitioning_type=DAY --schema name:string,value:integer -t mydataset.newtable
+Create an empty time partitioned table
+
 - bq load dataset.table_name filename.txt schema
 Load data to table table_name
 eg. bq load babynames.names2010 yob2010.txt name:string,gender:string,count:integer
@@ -20,3 +23,10 @@ Show schema of table table_name
 - bq query sql_query
 Run query
 eg. bq query "SELECT name,count FROM babynames.names_2010 WHERE gender = 'M' ORDER BY count ASC LIMIT 5"
+
+- echo '{"first_name":"dhruv","last_name":"thakur"}' | bq insert "dataset_name.table_name$20170511"
+Insert a row (containing 2 column data) into partition 2017-05-11 of table table_name. NULL will be inserted in any other columns, provided they are nullable
+
+
+- bq cp --append_table dataset_name.source_table$\20170510 'dataset_name.destination_table$20170510'
+Copies the contents of the 2017-05-10 partition of source_table into the 2017-05-10 partition of destination_table
